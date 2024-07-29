@@ -1,7 +1,7 @@
 [
   {
     "name": "Better AlbumOfTheYear Scores",
-    "description": "Extension for Spicetify to display the AOTY user score of an album/single on Spotify.",
+    "description": "Maintained fork of AlbumOfTheYear Scores. Extension for Spicetify to display the AOTY user score of an album/single on Spotify.",
     "preview": "assets/example2.png",
     "main": "aoty.js",
     "readme": "README.md",
