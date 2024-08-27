@@ -15294,21 +15294,34 @@ var aoty = (() => {
     return [parseFloat(F), e, s, C, R, S, b, D];
   }
   async function fl() {
-    if ((console.log("update"), Spicetify.Player.data.playbackId)) {
-      var s,
-        i,
+    var s;
+    if (
+      (console.log("update"),
+      Spicetify.Player.data.playbackId || Spicetify.Player.data.playback_id)
+    ) {
+      var i,
         o,
-        c = Spicetify.Player.data.playbackId;
+        c,
+        l =
+          null != (l = Spicetify.Player.data.playbackId)
+            ? l
+            : Spicetify.Player.data.playback_id;
       if (
-        (c != tl || "False" != hl) &&
+        (l != tl || "False" != hl) &&
         ((hl = "False"),
-        (ol = document.querySelector(
+        document.querySelector(
           "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
         )
-          ? document.querySelector(
+          ? (ol = document.querySelector(
               "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
-            )
-          : ol))
+            ))
+          : document.querySelector(
+              "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+            ) &&
+            (ol = document.querySelector(
+              "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+            )),
+        ol)
       ) {
         ul(),
           document.getElementsByClassName("scoreElement").length,
@@ -15319,9 +15332,14 @@ var aoty = (() => {
           artist_name: r,
           album_track_number: n,
           album_disc_number: a,
-        } = Spicetify.Player.data.item.metadata;
+        } = null !=
+        (s = null == (s = Spicetify.Player.data.item) ? void 0 : s.metadata)
+          ? s
+          : null == (s = Spicetify.Player.data.track)
+          ? void 0
+          : s.metadata;
         if (e && t && r) {
-          tl = c;
+          tl = l;
           try {
             "Weezer" !== r &&
               (t = (t = (t = t.split(" -")[0]).split(" (")[0]).replace(
@@ -15356,29 +15374,35 @@ var aoty = (() => {
                 (sl = document.querySelector(
                   "#main > div > div.Root__top-container.Root__top-container--right-sidebar-visible > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
                 )),
-              (sl = document.querySelector(
+              document.querySelector(
                 "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+              ) &&
+                (sl = document.querySelector(
+                  "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+                )),
+              (sl = document.querySelector(
+                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
               )
                 ? document.querySelector(
-                    "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+                    "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
                   )
                 : sl)) &&
               ((al = document.createElement("a")),
-              (s = e[4][Number(a) - 1].split("&")[Number(n) - 1]),
+              (i = e[4][Number(a) - 1].split("&")[Number(n) - 1]),
               (al.className = "songScore"),
-              69.5 <= s && (al.style.color = "#85ce73"),
-              49.5 <= s && s < 69.5 && (al.style.color = "#f0e68c"),
-              s < 49.5 && (al.style.color = "#d76666"),
-              "undefined" != s && (al.innerText = `    [${s}]`),
-              (i = String(e[6][Number(a) - 1]).split("/song")[Number(n)]),
-              (al.href = "https://albumoftheyear.org/song" + i),
+              69.5 <= i && (al.style.color = "#85ce73"),
+              49.5 <= i && i < 69.5 && (al.style.color = "#f0e68c"),
+              i < 49.5 && (al.style.color = "#d76666"),
+              "undefined" != i && (al.innerText = `    [${i}]`),
+              (o = String(e[6][Number(a) - 1]).split("/song")[Number(n)]),
+              (al.href = "https://albumoftheyear.org/song" + o),
               (al.style.fontSize = "10px"),
               (al.style.fontWeight = "bold"),
-              (o = e[7][Number(a) - 1].split("&")[Number(n) - 1]),
-              (al.title = o),
+              (c = e[7][Number(a) - 1].split("&")[Number(n) - 1]),
+              (al.title = c),
               (il = sl.children[0]),
-              90 <= s &&
-                25 <= o.split("Ratings")[0] &&
+              90 <= i &&
+                25 <= c.split("Ratings")[0] &&
                 (il.style.fontWeight = "bold"),
               sl.appendChild(al)),
               ((divContainer = document.createElement("div")).style.gridArea =
@@ -15412,11 +15436,7 @@ var aoty = (() => {
     (async function () {
       for (; !Spicetify.CosmosAsync || !Spicetify.showNotification; )
         await pl(500);
-      (document.querySelector(
-        ".main-nowPlayingBar-nowPlayingBar"
-      ).style.height = "100%"),
-        fl(),
-        ll.addEventListener("songchange", fl);
+      fl(), ll.addEventListener("songchange", fl);
     })();
   })();
 })();

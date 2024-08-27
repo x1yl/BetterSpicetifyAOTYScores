@@ -645,11 +645,11 @@ async function refreshrequest() {
 async function update() {
   console.log("update");
   // Check if there is a track playing
-
-  if (!Spicetify.Player.data.playbackId) return;
-
+  if (!Spicetify.Player.data.playbackId && !Spicetify.Player.data.playback_id)
+    return;
   // Check to see if you are replaying the same track.
-  const id = Spicetify.Player.data.playbackId;
+  const id =
+    Spicetify.Player.data.playbackId ?? Spicetify.Player.data.playback_id;
 
   // Fix to make it not spam #2.
   if (id == prevTrack && isRefreshing == "False") return;
@@ -674,6 +674,14 @@ async function update() {
     infoContainer = document.querySelector(
       "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
     );
+  } else if (
+    document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+    )
+  ) {
+    infoContainer = document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+    );
   }
   if (!infoContainer) return;
   clearRating();
@@ -695,7 +703,9 @@ async function update() {
     artist_name,
     album_track_number,
     album_disc_number,
-  } = Spicetify.Player.data.item.metadata;
+  } =
+    Spicetify.Player.data.item?.metadata ??
+    Spicetify.Player.data.track?.metadata;
 
   // Detect if no track is playing
   if (!title || !album_title || !artist_name) return;
@@ -769,6 +779,15 @@ async function update() {
       ) {
         songTitleBox = document.querySelector(
           "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+        );
+      }
+      if (
+        document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
+        )
+      ) {
+        songTitleBox = document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
         );
       }
       // If the song has a title.
@@ -892,9 +911,8 @@ async function update() {
 export default async function main() {
   while (!Spicetify.CosmosAsync || !Spicetify.showNotification)
     await sleep(500);
-  document.querySelector('.main-nowPlayingBar-nowPlayingBar').style.height = '100%';
   update();
-    // Run the main function if the song has changed or progress on a song is made.
+  // Run the main function if the song has changed or progress on a song is made.
   // Player.addEventListener("onprogress", update);
   Player.addEventListener("songchange", update);
 }
