@@ -12,10 +12,12 @@ Extension for [Spicetify](https://github.com/spicetify/spicetify-cli) to display
 
 Download [aoty.js](./aoty.js) and place it inside your Spicetify extensions folder:
 
-| Platform            | Path                                   |
-| ------------------- | -------------------------------------- |
-| **Linux**/**MacOS** | `~/.config/spicetify/Extensions`       |
-| **Windows**         | `%userprofile%\.spicetify\Extensions\` |
+Run
+```
+spicetify config-dir
+```
+
+Then open the Extenstions folder
 
 After putting the extension file in your extensions folder, run the following commands to enable the extension and apply the changes:
 
