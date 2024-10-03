@@ -32,7 +32,7 @@ var aoty = (() => {
     t = function () {
       return k || (0, y[G(y)[0]])((k = { exports: {} }).exports, k), k.exports;
     },
-    Q = {
+    j = {
       xml: !(y = {
         "node_modules/boolbase/index.js"(e, t) {
           t.exports = {
@@ -47,12 +47,12 @@ var aoty = (() => {
       }),
       decodeEntities: !0,
     },
-    j = { _useHtmlParser2: !0, xmlMode: !0 };
+    Q = { _useHtmlParser2: !0, xmlMode: !0 };
   function W(e) {
     return null != e && e.xml
       ? "boolean" == typeof e.xml
-        ? j
-        : { ...j, ...e.xml }
+        ? Q
+        : { ...Q, ...e.xml }
       : null != e
       ? e
       : void 0;
@@ -61,7 +61,7 @@ var aoty = (() => {
     X = {},
     K =
       (V(X, {
-        contains: () => St,
+        contains: () => It,
         html: () =>
           function (e, t) {
             (e = (function (e, t) {
@@ -76,7 +76,7 @@ var aoty = (() => {
               ? void (t = e)
               : e),
               (t = {
-                ...Q,
+                ...j,
                 ...(null == this ? void 0 : this._options),
                 ...W(null != t ? t : {}),
               });
@@ -91,7 +91,7 @@ var aoty = (() => {
               return (r.length = t), r;
             }
           },
-        parseHTML: () => It,
+        parseHTML: () => St,
         root: () =>
           function () {
             return this(this._root);
@@ -670,7 +670,7 @@ var aoty = (() => {
       [158, 382],
       [159, 376],
     ]),
-    Ie =
+    Se =
       null != (r = String.fromCodePoint)
         ? r
         : function (e) {
@@ -683,7 +683,7 @@ var aoty = (() => {
               (t += String.fromCharCode(e))
             );
           };
-  function Se(e) {
+  function Ie(e) {
     var t;
     return (55296 <= e && e <= 57343) || 1114111 < e
       ? 65533
@@ -817,7 +817,7 @@ var aoty = (() => {
       if (e === i.SEMI) this.consumed += 1;
       else if (this.decodeMode === be.Strict) return 0;
       return (
-        this.emitCodePoint(Se(this.result), this.consumed),
+        this.emitCodePoint(Ie(this.result), this.consumed),
         this.errors &&
           (e !== i.SEMI &&
             this.errors.missingSemicolonAfterCharacterReference(),
@@ -897,7 +897,7 @@ var aoty = (() => {
   };
   function ye(e) {
     let i = "";
-    const o = new Le(e, (e) => (i += Ie(e)));
+    const o = new Le(e, (e) => (i += Se(e)));
     return function (e, t) {
       let r = 0,
         n = 0;
@@ -2623,14 +2623,14 @@ var aoty = (() => {
     "track",
     "wbr",
   ]);
-  function Qe(e, t = {}) {
+  function je(e, t = {}) {
     var r = "length" in e ? e : [e];
     let n = "";
     for (let e = 0; e < r.length; e++)
       n += (function (e, t) {
         switch (e.type) {
           case z:
-            return Qe(e.children, t);
+            return je(e.children, t);
           case ae:
           case J:
             return `<${e.data}>`;
@@ -2683,7 +2683,7 @@ var aoty = (() => {
                 : t.selfClosingTags && Ve.has(e.name))
                 ? (t.xmlMode || (r += " "), (r += "/>"))
                 : ((r += ">"),
-                  0 < e.children.length && (r += Qe(e.children, t)),
+                  0 < e.children.length && (r += je(e.children, t)),
                   (!t.xmlMode && Ve.has(e.name)) || (r += `</${e.name}>`));
               return r;
             })(e, t);
@@ -2700,7 +2700,7 @@ var aoty = (() => {
       })(r[e], t);
     return n;
   }
-  var je = Qe;
+  var Qe = je;
   var We = new Set([
       "mi",
       "mo",
@@ -2714,7 +2714,7 @@ var aoty = (() => {
     ]),
     Xe = new Set(["svg", "math"]);
   function Ke(e, t) {
-    return je(e, t);
+    return Qe(e, t);
   }
   function ze(e) {
     return Array.isArray(e)
@@ -2932,13 +2932,13 @@ var aoty = (() => {
     for (let e = 0; e < t.length; e++) r += $e(t[e]);
     return r;
   }
-  function It(e, t, r = "boolean" == typeof t && t) {
+  function St(e, t, r = "boolean" == typeof t && t) {
     if (!e || "string" != typeof e) return null;
     "boolean" == typeof t && (r = t);
-    e = this.load(e, Q, !1);
+    e = this.load(e, j, !1);
     return r || e("script").remove(), e.root()[0].children.slice();
   }
-  function St(t, r) {
+  function It(t, r) {
     if (r !== t) {
       let e = r;
       for (; e && e !== e.parent; ) if ((e = e.parent) === t) return !0;
@@ -3130,8 +3130,8 @@ var aoty = (() => {
           });
         return this;
       },
-    removeClass: () => Qt,
-    toggleClass: () => jt,
+    removeClass: () => jt,
+    toggleClass: () => Qt,
     val: () =>
       function (e) {
         var t = 0 === arguments.length,
@@ -3268,10 +3268,10 @@ var aoty = (() => {
     }
     return this;
   }
-  function Qt(r) {
+  function jt(r) {
     if ("function" == typeof r)
       return E(this, (e, t) => {
-        h(e) && Qt.call([e], r.call(e, t, e.attribs.class || ""));
+        h(e) && jt.call([e], r.call(e, t, e.attribs.class || ""));
       });
     const a = Yt(r),
       s = a.length,
@@ -3290,10 +3290,10 @@ var aoty = (() => {
         }
     });
   }
-  function jt(r, n) {
+  function Qt(r, n) {
     if ("function" == typeof r)
       return E(this, (e, t) => {
-        h(e) && jt.call([e], r.call(e, t, e.attribs.class || "", n), n);
+        h(e) && Qt.call([e], r.call(e, t, e.attribs.class || "", n), n);
       });
     if (r && "string" == typeof r) {
       var t = r.split(kt),
@@ -3315,7 +3315,7 @@ var aoty = (() => {
     return this;
   }
   var C,
-    I,
+    S,
     n = {},
     Wt =
       (V(n, {
@@ -3398,7 +3398,7 @@ var aoty = (() => {
             if ("string" != typeof e)
               return (
                 (t = Dt(e) ? e.toArray() : [e]),
-                this._make(t.filter((t) => r.some((e) => St(e, t))))
+                this._make(t.filter((t) => r.some((e) => It(e, t))))
               );
             var t = dn.test(e) ? r : this.children().toArray(),
               n = {
@@ -3493,8 +3493,8 @@ var aoty = (() => {
         parents: () => fn,
         parentsUntil: () => An,
         prev: () => Cn,
-        prevAll: () => In,
-        prevUntil: () => Sn,
+        prevAll: () => Sn,
+        prevUntil: () => In,
         siblings: () => bn,
         slice: () =>
           function (e, t) {
@@ -3516,7 +3516,7 @@ var aoty = (() => {
       (p.Parent = "parent"),
       (p.Sibling = "sibling"),
       (p.ColumnCombinator = "column-combinator"),
-      ((p = I = I || {}).Any = "any"),
+      ((p = S = S || {}).Any = "any"),
       (p.Element = "element"),
       (p.End = "end"),
       (p.Equals = "equals"),
@@ -3527,12 +3527,12 @@ var aoty = (() => {
       /^[^\\#]?(?:\\(?:[\da-f]{1,6}\s?|.)|[\w\-\u00b0-\uFFFF])+/),
     Xt = /\\([\da-f]{1,6}\s?|(\s)|.)/gi,
     Kt = new Map([
-      [126, I.Element],
-      [94, I.Start],
-      [36, I.End],
-      [42, I.Any],
-      [33, I.Not],
-      [124, I.Hyphen],
+      [126, S.Element],
+      [94, S.Start],
+      [36, S.End],
+      [42, S.Any],
+      [33, S.Not],
+      [124, S.Hyphen],
     ]),
     zt = new Set([
       "has",
@@ -3656,10 +3656,10 @@ var aoty = (() => {
               a(C.Adjacent), l(1);
               break;
             case 46:
-              u("class", I.Element);
+              u("class", S.Element);
               break;
             case 35:
-              u("id", I.Equals);
+              u("id", S.Equals);
               break;
             case 91: {
               l(1);
@@ -3675,13 +3675,13 @@ var aoty = (() => {
                         61 !== s.charCodeAt(i + 1) &&
                         ((t = e), (e = c(1)))),
                   l(0),
-                  I.Exists);
+                  S.Exists);
               const p = Kt.get(s.charCodeAt(i));
               if (p) {
                 if (((r = p), 61 !== s.charCodeAt(i + 1)))
                   throw new Error("Expected `=`");
                 l(2);
-              } else 61 === s.charCodeAt(i) && ((r = I.Equals), l(1));
+              } else 61 === s.charCodeAt(i) && ((r = S.Equals), l(1));
               let n = "",
                 a = null;
               if ("exists" !== r) {
@@ -3807,12 +3807,12 @@ var aoty = (() => {
     return !ir.has(e.type);
   }
   var cr = new Map([
-    [I.Exists, 10],
-    [I.Equals, 8],
-    [I.Not, 7],
-    [I.Start, 6],
-    [I.End, 6],
-    [I.Any, 5],
+    [S.Exists, 10],
+    [S.Equals, 8],
+    [S.Not, 7],
+    [S.Start, 6],
+    [S.End, 6],
+    [S.Any, 5],
   ]);
   function lr(r) {
     var n = r.map(hr);
@@ -3831,7 +3831,7 @@ var aoty = (() => {
     return (
       e.type === C.Attribute
         ? ((r = null != (t = cr.get(e.action)) ? t : 4),
-          e.action === I.Equals && "id" === e.name && (r = 9),
+          e.action === S.Equals && "id" === e.name && (r = 9),
           e.ignoreCase && (r >>= 1))
         : e.type === C.Pseudo &&
           (e.data
@@ -4111,7 +4111,7 @@ var aoty = (() => {
       return null != t && n.isTag(t) && r(e);
     };
   }
-  var Ir = {
+  var Sr = {
     contains(t, r, { adapter: n }) {
       return function (e) {
         return t(e) && n.getText(e).includes(r);
@@ -4197,13 +4197,13 @@ var aoty = (() => {
         ? 1 === n.length
           ? (e) => a(n[0], e) && t(e)
           : (e) => n.includes(e) && t(e)
-        : Ir.root(t, e, r);
+        : Sr.root(t, e, r);
     },
-    hover: Sr("isHovered"),
-    visited: Sr("isVisited"),
-    active: Sr("isActive"),
+    hover: Ir("isHovered"),
+    visited: Ir("isVisited"),
+    active: Ir("isActive"),
   };
-  function Sr(a) {
+  function Ir(a) {
     return function (t, e, { adapter: r }) {
       const n = r[a];
       return "function" != typeof n
@@ -4405,7 +4405,7 @@ var aoty = (() => {
         }
         if ("function" == typeof p)
           return Rr(p, d, E, 1), (e) => p(e, E) && a(e);
-        if (d in Ir) return Ir[d](a, E, l, h);
+        if (d in Sr) return Sr[d](a, E, l, h);
         if (d in br) {
           const T = br[d];
           return Rr(T, d, E, 2), (e) => T(e, l, E) && a(e);
@@ -4569,7 +4569,7 @@ var aoty = (() => {
   }
   var Yr = (e, t) => e === t,
     Vr = { adapter: K, equals: Yr };
-  function Qr(e) {
+  function jr(e) {
     var t,
       e = null != e ? e : Vr;
     return (
@@ -4580,20 +4580,20 @@ var aoty = (() => {
       e
     );
   }
-  function jr(n) {
+  function Qr(n) {
     return function (e, t, r) {
-      t = Qr(t);
+      t = jr(t);
       return n(e, t, r);
     };
   }
-  jr(function (e, t, r) {
+  Qr(function (e, t, r) {
     return yr(Br(e, t, r), t.adapter);
   }),
-    jr(Br);
-  var Wr = jr(Gr);
+    Qr(Br);
+  var Wr = Qr(Gr);
   function Xr(n) {
     return function (e, t, r) {
-      (r = Qr(r)),
+      (r = jr(r)),
         "function" != typeof e && (e = Br(e, r, t)),
         (t = Kr(t, r.adapter, e.shouldTestNextSiblings));
       return n(e, t, r);
@@ -4874,11 +4874,11 @@ var aoty = (() => {
     }, Tn),
     Nn = pn((e) => rt(e), Tn),
     Cn = e((e) => nt(e)),
-    In = p((e) => {
+    Sn = p((e) => {
       for (var t = []; e.prev; ) h((e = e.prev)) && t.push(e);
       return t;
     }, Tn),
-    Sn = pn((e) => nt(e), Tn),
+    In = pn((e) => nt(e), Tn),
     bn = p((t) => tt(t).filter((e) => h(e) && e !== t), pt),
     Rn = p((e) => Ze(e).filter(h), Tn);
   function Dn(r) {
@@ -5340,8 +5340,8 @@ var aoty = (() => {
     (r[(r.REPLACEMENT_CHARACTER = 65533)] = "REPLACEMENT_CHARACTER");
   var f,
     Vn = "--",
-    Qn = "[CDATA[",
-    jn = "doctype",
+    jn = "[CDATA[",
+    Qn = "doctype",
     Wn = "script",
     Xn = "public",
     Kn = "system";
@@ -6305,8 +6305,8 @@ var aoty = (() => {
   function Ca(e) {
     return ga(e) || e === T.SOLIDUS || e === T.GREATER_THAN_SIGN;
   }
-  var Ia,
-    Sa = class {
+  var Sa,
+    Ia = class {
       constructor(e, t) {
         (this.options = e),
           (this.handler = t),
@@ -7542,14 +7542,14 @@ var aoty = (() => {
         this._consumeSequenceIfMatch(Vn, !0)
           ? (this._createCommentToken(Vn.length + 1),
             (this.state = g.COMMENT_START))
-          : this._consumeSequenceIfMatch(jn, !1)
-          ? ((this.currentLocation = this.getCurrentLocation(jn.length + 1)),
+          : this._consumeSequenceIfMatch(Qn, !1)
+          ? ((this.currentLocation = this.getCurrentLocation(Qn.length + 1)),
             (this.state = g.DOCTYPE))
-          : this._consumeSequenceIfMatch(Qn, !0)
+          : this._consumeSequenceIfMatch(jn, !0)
           ? this.inForeignNode
             ? (this.state = g.CDATA_SECTION)
             : (this._err(f.cdataInHtmlContent),
-              this._createCommentToken(Qn.length + 1),
+              this._createCommentToken(jn.length + 1),
               (this.currentToken.data = "[CDATA["),
               (this.state = g.BOGUS_COMMENT))
           : this._ensureHibernation() ||
@@ -8563,9 +8563,9 @@ var aoty = (() => {
       }
     },
     Pa =
-      (((p = Ia = Ia || {})[(p.Marker = 0)] = "Marker"),
+      (((p = Sa = Sa || {})[(p.Marker = 0)] = "Marker"),
       (p[(p.Element = 1)] = "Element"),
-      { type: Ia.Marker }),
+      { type: Sa.Marker }),
     wa = class {
       constructor(e) {
         (this.treeAdapter = e), (this.entries = []), (this.bookmark = null);
@@ -8577,7 +8577,7 @@ var aoty = (() => {
           s = this.treeAdapter.getNamespaceURI(e);
         for (let e = 0; e < this.entries.length; e++) {
           var i = this.entries[e];
-          if (i.type === Ia.Marker) break;
+          if (i.type === Sa.Marker) break;
           var i = i["element"];
           this.treeAdapter.getTagName(i) === a &&
             this.treeAdapter.getNamespaceURI(i) === s &&
@@ -8607,11 +8607,11 @@ var aoty = (() => {
       }
       pushElement(e, t) {
         this._ensureNoahArkCondition(e),
-          this.entries.unshift({ type: Ia.Element, element: e, token: t });
+          this.entries.unshift({ type: Sa.Element, element: e, token: t });
       }
       insertElementAfterBookmark(e, t) {
         var r = this.entries.indexOf(this.bookmark);
-        this.entries.splice(r, 0, { type: Ia.Element, element: e, token: t });
+        this.entries.splice(r, 0, { type: Sa.Element, element: e, token: t });
       }
       removeEntry(e) {
         e = this.entries.indexOf(e);
@@ -8624,13 +8624,13 @@ var aoty = (() => {
       getElementEntryInScopeWithTagName(t) {
         var e = this.entries.find(
           (e) =>
-            e.type === Ia.Marker || this.treeAdapter.getTagName(e.element) === t
+            e.type === Sa.Marker || this.treeAdapter.getTagName(e.element) === t
         );
-        return e && e.type === Ia.Element ? e : null;
+        return e && e.type === Sa.Element ? e : null;
       }
       getElementEntry(t) {
         return this.entries.find(
-          (e) => e.type === Ia.Element && e.element === t
+          (e) => e.type === Sa.Element && e.element === t
         );
       }
     };
@@ -8840,12 +8840,12 @@ var aoty = (() => {
       "-//w3c//dtd xhtml 1.0 frameset//",
       "-//w3c//dtd xhtml 1.0 transitional//",
     ],
-    Qa = [
+    ja = [
       ...Va,
       "-//w3c//dtd html 4.01 frameset//",
       "-//w3c//dtd html 4.01 transitional//",
     ];
-  function ja(t, e) {
+  function Qa(t, e) {
     return e.some((e) => t.startsWith(e));
   }
   var Wa = { TEXT_HTML: "text/html", APPLICATION_XML: "application/xhtml+xml" },
@@ -9129,7 +9129,7 @@ var aoty = (() => {
           (this.onParseError = this.options.onParseError),
           this.onParseError && (this.options.sourceCodeLocationInfo = !0),
           (this.document = null != t ? t : this.treeAdapter.createDocument()),
-          (this.tokenizer = new Sa(this.options, this)),
+          (this.tokenizer = new Ia(this.options, this)),
           (this.activeFormattingElements = new wa(this.treeAdapter)),
           (this.fragmentContextID = r
             ? ia(this.treeAdapter.getTagName(r))
@@ -9421,7 +9421,7 @@ var aoty = (() => {
         var t = this.activeFormattingElements.entries.length;
         if (t) {
           var r = this.activeFormattingElements.entries.findIndex(
-            (e) => e.type === Ia.Marker || this.openElements.contains(e.element)
+            (e) => e.type === Sa.Marker || this.openElements.contains(e.element)
           );
           for (let e = r < 0 ? t - 1 : r - 1; 0 <= e; e--) {
             var n = this.activeFormattingElements.entries[e];
@@ -9547,7 +9547,7 @@ var aoty = (() => {
               gs(this, e);
               break;
             case U.BEFORE_HEAD:
-              Is(this, e);
+              Ss(this, e);
               break;
             case U.IN_HEAD:
               Ds(this, e);
@@ -9572,7 +9572,7 @@ var aoty = (() => {
             case U.IN_TABLE:
             case U.IN_TABLE_BODY:
             case U.IN_ROW:
-              js(this, e);
+              Qs(this, e);
               break;
             case U.IN_TABLE_TEXT:
               $s(this, e);
@@ -9599,7 +9599,7 @@ var aoty = (() => {
               gs(this, e);
               break;
             case U.BEFORE_HEAD:
-              Is(this, e);
+              Ss(this, e);
               break;
             case U.IN_HEAD:
               Ds(this, e);
@@ -9616,7 +9616,7 @@ var aoty = (() => {
             case U.IN_TABLE:
             case U.IN_TABLE_BODY:
             case U.IN_ROW:
-              js(this, e);
+              Qs(this, e);
               break;
             case U.IN_COLUMN_GROUP:
               ai(this, e);
@@ -9703,7 +9703,7 @@ var aoty = (() => {
             Ns(this, e);
             break;
           case U.IN_HEAD:
-            Ss(this, e);
+            Is(this, e);
             break;
           case U.IN_HEAD_NO_SCRIPT:
             Os(this, e);
@@ -9751,7 +9751,7 @@ var aoty = (() => {
             Ni(this, e);
             break;
           case U.AFTER_FRAMESET:
-            Ii(this, e);
+            Si(this, e);
             break;
           case U.AFTER_AFTER_BODY:
             bi(this, e);
@@ -9830,7 +9830,7 @@ var aoty = (() => {
             Ci(this, e);
             break;
           case U.AFTER_FRAMESET:
-            Si(this, e);
+            Ii(this, e);
             break;
           case U.AFTER_AFTER_BODY:
             Ri(this, e);
@@ -9845,7 +9845,7 @@ var aoty = (() => {
             gs(this, e);
             break;
           case U.BEFORE_HEAD:
-            Is(this, e);
+            Ss(this, e);
             break;
           case U.IN_HEAD:
             Ds(this, e);
@@ -9868,7 +9868,7 @@ var aoty = (() => {
             Ys(this, e);
             break;
           case U.TEXT:
-            Qs(this, e);
+            js(this, e);
             break;
           case U.IN_TABLE_TEXT:
             Js(this, e);
@@ -9918,7 +9918,7 @@ var aoty = (() => {
             case U.IN_TABLE:
             case U.IN_TABLE_BODY:
             case U.IN_ROW:
-              js(this, e);
+              Qs(this, e);
               break;
             case U.IN_TABLE_TEXT:
               zs(this, e);
@@ -10061,8 +10061,8 @@ var aoty = (() => {
             if (null !== r) {
               if (((r = r.toLowerCase()), Ya.has(r))) return w.QUIRKS;
               e = null === t ? qa : Ga;
-              if (ja(r, e)) return w.QUIRKS;
-              if (ja(r, null === t ? Va : Qa)) return w.LIMITED_QUIRKS;
+              if (Qa(r, e)) return w.QUIRKS;
+              if (Qa(r, null === t ? Va : ja)) return w.LIMITED_QUIRKS;
             }
             return w.NO_QUIRKS;
           })(t);
@@ -10104,22 +10104,22 @@ var aoty = (() => {
           (e.insertionMode = U.IN_HEAD);
         break;
       default:
-        Is(e, t);
+        Ss(e, t);
     }
   }
   function Cs(e, t) {
     var r = t.tagID;
     r === x.HEAD || r === x.BODY || r === x.HTML || r === x.BR
-      ? Is(e, t)
+      ? Ss(e, t)
       : e._err(t, f.endTagWithoutMatchingOpenElement);
   }
-  function Is(e, t) {
+  function Ss(e, t) {
     e._insertFakeElement(B.HEAD, x.HEAD),
       (e.headElement = e.openElements.current),
       (e.insertionMode = U.IN_HEAD),
       e._processToken(t);
   }
-  function Ss(e, t) {
+  function Is(e, t) {
     switch (t.tagID) {
       case x.HTML:
         N(e, t);
@@ -10204,7 +10204,7 @@ var aoty = (() => {
       case x.META:
       case x.NOFRAMES:
       case x.STYLE:
-        Ss(e, t);
+        Is(e, t);
         break;
       case x.NOSCRIPT:
         e._err(t, f.nestedNoscriptInHead);
@@ -10260,7 +10260,7 @@ var aoty = (() => {
       case x.TITLE:
         e._err(t, f.abandonedHeadElementChild),
           e.openElements.push(e.headElement, x.HEAD),
-          Ss(e, t),
+          Is(e, t),
           e.openElements.remove(e.headElement);
         break;
       case x.HEAD:
@@ -10471,25 +10471,25 @@ var aoty = (() => {
         break;
       case x.XMP:
         (b = t),
-          (S = e).openElements.hasInButtonScope(x.P) && S._closePElement(),
-          S._reconstructActiveFormattingElements(),
-          (S.framesetOk = !1),
-          S._switchToTextParsing(b, F.RAWTEXT);
+          (I = e).openElements.hasInButtonScope(x.P) && I._closePElement(),
+          I._reconstructActiveFormattingElements(),
+          (I.framesetOk = !1),
+          I._switchToTextParsing(b, F.RAWTEXT);
         break;
       case x.SVG:
-        (S = t),
+        (I = t),
           (b = e)._reconstructActiveFormattingElements(),
-          ts(S),
-          rs(S),
-          S.selfClosing
-            ? b._appendElement(S, P.SVG)
-            : b._insertElement(S, P.SVG),
-          (S.ackSelfClosing = !0);
+          ts(I),
+          rs(I),
+          I.selfClosing
+            ? b._appendElement(I, P.SVG)
+            : b._insertElement(I, P.SVG),
+          (I.ackSelfClosing = !0);
         break;
       case x.HTML:
-        (I = t),
+        (S = t),
           0 === (C = e).openElements.tmplCount &&
-            C.treeAdapter.adoptAttributes(C.openElements.items[0], I.attrs);
+            C.treeAdapter.adoptAttributes(C.openElements.items[0], S.attrs);
         break;
       case x.BASE:
       case x.LINK:
@@ -10500,13 +10500,13 @@ var aoty = (() => {
       case x.BGSOUND:
       case x.BASEFONT:
       case x.TEMPLATE:
-        Ss(e, t);
+        Is(e, t);
         break;
       case x.BODY:
         (C = t),
-          (N = (I = e).openElements.tryPeekProperlyNestedBodyElement()) &&
-            0 === I.openElements.tmplCount &&
-            ((I.framesetOk = !1), I.treeAdapter.adoptAttributes(N, C.attrs));
+          (N = (S = e).openElements.tryPeekProperlyNestedBodyElement()) &&
+            0 === S.openElements.tmplCount &&
+            ((S.framesetOk = !1), S.treeAdapter.adoptAttributes(N, C.attrs));
         break;
       case x.FORM:
         (N = t),
@@ -10666,8 +10666,8 @@ var aoty = (() => {
       g,
       N,
       C,
-      I,
       S,
+      I,
       b,
       R,
       D,
@@ -10829,13 +10829,13 @@ var aoty = (() => {
       e.openElements.pop(),
       (e.insertionMode = e.originalInsertionMode);
   }
-  function Qs(e, t) {
+  function js(e, t) {
     e._err(t, f.eofInElementThatCanContainOnlyText),
       e.openElements.pop(),
       (e.insertionMode = e.originalInsertionMode),
       e.onEof(t);
   }
-  function js(e, t) {
+  function Qs(e, t) {
     if (cs.has(e.openElements.currentTagId))
       switch (
         ((e.pendingCharacterTokens.length = 0),
@@ -10866,7 +10866,7 @@ var aoty = (() => {
       case x.STYLE:
       case x.SCRIPT:
       case x.TEMPLATE:
-        Ss(e, t);
+        Is(e, t);
         break;
       case x.COL:
         (c = t),
@@ -11027,7 +11027,7 @@ var aoty = (() => {
         e._appendElement(t, P.HTML), (t.ackSelfClosing = !0);
         break;
       case x.TEMPLATE:
-        Ss(e, t);
+        Is(e, t);
         break;
       default:
         ai(e, t);
@@ -11240,7 +11240,7 @@ var aoty = (() => {
         break;
       case x.SCRIPT:
       case x.TEMPLATE:
-        Ss(e, t);
+        Is(e, t);
     }
   }
   function di(e, t) {
@@ -11307,7 +11307,7 @@ var aoty = (() => {
       case x.STYLE:
       case x.TEMPLATE:
       case x.TITLE:
-        Ss(e, t);
+        Is(e, t);
         break;
       case x.CAPTION:
       case x.COLGROUP:
@@ -11383,7 +11383,7 @@ var aoty = (() => {
         e._appendElement(t, P.HTML), (t.ackSelfClosing = !0);
         break;
       case x.NOFRAMES:
-        Ss(e, t);
+        Is(e, t);
     }
   }
   function Ci(e, t) {
@@ -11393,16 +11393,16 @@ var aoty = (() => {
       e.openElements.currentTagId === x.FRAMESET ||
       (e.insertionMode = U.AFTER_FRAMESET);
   }
-  function Ii(e, t) {
+  function Si(e, t) {
     switch (t.tagID) {
       case x.HTML:
         N(e, t);
         break;
       case x.NOFRAMES:
-        Ss(e, t);
+        Is(e, t);
     }
   }
-  function Si(e, t) {
+  function Ii(e, t) {
     t.tagID === x.HTML && (e.insertionMode = U.AFTER_AFTER_FRAMESET);
   }
   function bi(e, t) {
@@ -11417,7 +11417,7 @@ var aoty = (() => {
         N(e, t);
         break;
       case x.NOFRAMES:
-        Ss(e, t);
+        Is(e, t);
     }
   }
   function Oi(e, t) {
@@ -11736,7 +11736,7 @@ var aoty = (() => {
         (t = hs.getFragmentParser(t, e)).tokenizer.write(r, !0),
         t.getFragment());
   }
-  var S,
+  var I,
     b,
     Hi,
     Gi = { treeAdapter: Fi };
@@ -11756,26 +11756,26 @@ var aoty = (() => {
   }
   function Yi(e) {
     return (
-      e === S.Space ||
-      e === S.NewLine ||
-      e === S.Tab ||
-      e === S.FormFeed ||
-      e === S.CarriageReturn
+      e === I.Space ||
+      e === I.NewLine ||
+      e === I.Tab ||
+      e === I.FormFeed ||
+      e === I.CarriageReturn
     );
   }
   function Vi(e) {
-    return e === S.Slash || e === S.Gt || Yi(e);
-  }
-  function Qi(e) {
-    return e >= S.Zero && e <= S.Nine;
+    return e === I.Slash || e === I.Gt || Yi(e);
   }
   function ji(e) {
-    return (e >= S.LowerA && e <= S.LowerZ) || (e >= S.UpperA && e <= S.UpperZ);
+    return e >= I.Zero && e <= I.Nine;
+  }
+  function Qi(e) {
+    return (e >= I.LowerA && e <= I.LowerZ) || (e >= I.UpperA && e <= I.UpperZ);
   }
   function Wi(e) {
-    return (e >= S.UpperA && e <= S.UpperF) || (e >= S.LowerA && e <= S.LowerF);
+    return (e >= I.UpperA && e <= I.UpperF) || (e >= I.LowerA && e <= I.LowerF);
   }
-  ((n = S = S || {})[(n.Tab = 9)] = "Tab"),
+  ((n = I = I || {})[(n.Tab = 9)] = "Tab"),
     (n[(n.NewLine = 10)] = "NewLine"),
     (n[(n.FormFeed = 12)] = "FormFeed"),
     (n[(n.CarriageReturn = 13)] = "CarriageReturn"),
@@ -11895,12 +11895,12 @@ var aoty = (() => {
         return this.sectionStart;
       }
       stateText(e) {
-        e === S.Lt || (!this.decodeEntities && this.fastForwardTo(S.Lt))
+        e === I.Lt || (!this.decodeEntities && this.fastForwardTo(I.Lt))
           ? (this.index > this.sectionStart &&
               this.cbs.ontext(this.sectionStart, this.index),
             (this.state = b.BeforeTagName),
             (this.sectionStart = this.index))
-          : this.decodeEntities && e === S.Amp && (this.state = b.BeforeEntity);
+          : this.decodeEntities && e === I.Amp && (this.state = b.BeforeEntity);
       }
       stateSpecialStartSequence(e) {
         var t = this.sequenceIndex === this.currentSequence.length;
@@ -11914,7 +11914,7 @@ var aoty = (() => {
       stateInSpecialTag(e) {
         if (this.sequenceIndex === this.currentSequence.length) {
           var t, r;
-          if (e === S.Gt || Yi(e))
+          if (e === I.Gt || Yi(e))
             return (
               (t = this.index - this.currentSequence.length),
               this.sectionStart < t &&
@@ -11933,10 +11933,10 @@ var aoty = (() => {
           : 0 === this.sequenceIndex
           ? this.currentSequence === R.TitleEnd
             ? this.decodeEntities &&
-              e === S.Amp &&
+              e === I.Amp &&
               (this.state = b.BeforeEntity)
-            : this.fastForwardTo(S.Lt) && (this.sequenceIndex = 1)
-          : (this.sequenceIndex = Number(e === S.Lt));
+            : this.fastForwardTo(I.Lt) && (this.sequenceIndex = 1)
+          : (this.sequenceIndex = Number(e === I.Lt));
       }
       stateCDATASequence(e) {
         e === R.Cdata[this.sequenceIndex]
@@ -11970,7 +11970,7 @@ var aoty = (() => {
             (this.sequenceIndex = 0);
       }
       isTagStartChar(e) {
-        return this.xmlMode ? !Vi(e) : ji(e);
+        return this.xmlMode ? !Vi(e) : Qi(e);
       }
       startSpecial(e, t) {
         (this.isSpecial = !0),
@@ -11980,10 +11980,10 @@ var aoty = (() => {
       }
       stateBeforeTagName(e) {
         var t;
-        e === S.ExclamationMark
+        e === I.ExclamationMark
           ? ((this.state = b.BeforeDeclaration),
             (this.sectionStart = this.index + 1))
-          : e === S.Questionmark
+          : e === I.Questionmark
           ? ((this.state = b.InProcessingInstruction),
             (this.sectionStart = this.index + 1))
           : this.isTagStartChar(e)
@@ -11995,7 +11995,7 @@ var aoty = (() => {
                     ? b.InTagName
                     : b.BeforeSpecialS)
               : this.startSpecial(R.TitleEnd, 3))
-          : e === S.Slash
+          : e === I.Slash
           ? (this.state = b.BeforeClosingTagName)
           : ((this.state = b.Text), this.stateText(e));
       }
@@ -12008,7 +12008,7 @@ var aoty = (() => {
       }
       stateBeforeClosingTagName(e) {
         Yi(e) ||
-          (e === S.Gt
+          (e === I.Gt
             ? (this.state = b.Text)
             : ((this.state = this.isTagStartChar(e)
                 ? b.InClosingTagName
@@ -12016,34 +12016,34 @@ var aoty = (() => {
               (this.sectionStart = this.index)));
       }
       stateInClosingTagName(e) {
-        (e !== S.Gt && !Yi(e)) ||
+        (e !== I.Gt && !Yi(e)) ||
           (this.cbs.onclosetag(this.sectionStart, this.index),
           (this.sectionStart = -1),
           (this.state = b.AfterClosingTagName),
           this.stateAfterClosingTagName(e));
       }
       stateAfterClosingTagName(e) {
-        (e !== S.Gt && !this.fastForwardTo(S.Gt)) ||
+        (e !== I.Gt && !this.fastForwardTo(I.Gt)) ||
           ((this.state = b.Text),
           (this.baseState = b.Text),
           (this.sectionStart = this.index + 1));
       }
       stateBeforeAttributeName(e) {
-        e === S.Gt
+        e === I.Gt
           ? (this.cbs.onopentagend(this.index),
             this.isSpecial
               ? ((this.state = b.InSpecialTag), (this.sequenceIndex = 0))
               : (this.state = b.Text),
             (this.baseState = this.state),
             (this.sectionStart = this.index + 1))
-          : e === S.Slash
+          : e === I.Slash
           ? (this.state = b.InSelfClosingTag)
           : Yi(e) ||
             ((this.state = b.InAttributeName),
             (this.sectionStart = this.index));
       }
       stateInSelfClosingTag(e) {
-        e === S.Gt
+        e === I.Gt
           ? (this.cbs.onselfclosingtag(this.index),
             (this.state = b.Text),
             (this.baseState = b.Text),
@@ -12054,16 +12054,16 @@ var aoty = (() => {
             this.stateBeforeAttributeName(e));
       }
       stateInAttributeName(e) {
-        (e !== S.Eq && !Vi(e)) ||
+        (e !== I.Eq && !Vi(e)) ||
           (this.cbs.onattribname(this.sectionStart, this.index),
           (this.sectionStart = -1),
           (this.state = b.AfterAttributeName),
           this.stateAfterAttributeName(e));
       }
       stateAfterAttributeName(e) {
-        e === S.Eq
+        e === I.Eq
           ? (this.state = b.BeforeAttributeValue)
-          : e === S.Slash || e === S.Gt
+          : e === I.Slash || e === I.Gt
           ? (this.cbs.onattribend(Hi.NoValue, this.index),
             (this.state = b.BeforeAttributeName),
             this.stateBeforeAttributeName(e))
@@ -12073,10 +12073,10 @@ var aoty = (() => {
             (this.sectionStart = this.index));
       }
       stateBeforeAttributeValue(e) {
-        e === S.DoubleQuote
+        e === I.DoubleQuote
           ? ((this.state = b.InAttributeValueDq),
             (this.sectionStart = this.index + 1))
-          : e === S.SingleQuote
+          : e === I.SingleQuote
           ? ((this.state = b.InAttributeValueSq),
             (this.sectionStart = this.index + 1))
           : Yi(e) ||
@@ -12089,50 +12089,50 @@ var aoty = (() => {
           ? (this.cbs.onattribdata(this.sectionStart, this.index),
             (this.sectionStart = -1),
             this.cbs.onattribend(
-              t === S.DoubleQuote ? Hi.Double : Hi.Single,
+              t === I.DoubleQuote ? Hi.Double : Hi.Single,
               this.index
             ),
             (this.state = b.BeforeAttributeName))
           : this.decodeEntities &&
-            e === S.Amp &&
+            e === I.Amp &&
             ((this.baseState = this.state), (this.state = b.BeforeEntity));
       }
       stateInAttributeValueDoubleQuotes(e) {
-        this.handleInAttributeValue(e, S.DoubleQuote);
+        this.handleInAttributeValue(e, I.DoubleQuote);
       }
       stateInAttributeValueSingleQuotes(e) {
-        this.handleInAttributeValue(e, S.SingleQuote);
+        this.handleInAttributeValue(e, I.SingleQuote);
       }
       stateInAttributeValueNoQuotes(e) {
-        Yi(e) || e === S.Gt
+        Yi(e) || e === I.Gt
           ? (this.cbs.onattribdata(this.sectionStart, this.index),
             (this.sectionStart = -1),
             this.cbs.onattribend(Hi.Unquoted, this.index),
             (this.state = b.BeforeAttributeName),
             this.stateBeforeAttributeName(e))
           : this.decodeEntities &&
-            e === S.Amp &&
+            e === I.Amp &&
             ((this.baseState = this.state), (this.state = b.BeforeEntity));
       }
       stateBeforeDeclaration(e) {
-        e === S.OpeningSquareBracket
+        e === I.OpeningSquareBracket
           ? ((this.state = b.CDATASequence), (this.sequenceIndex = 0))
-          : (this.state = e === S.Dash ? b.BeforeComment : b.InDeclaration);
+          : (this.state = e === I.Dash ? b.BeforeComment : b.InDeclaration);
       }
       stateInDeclaration(e) {
-        (e !== S.Gt && !this.fastForwardTo(S.Gt)) ||
+        (e !== I.Gt && !this.fastForwardTo(I.Gt)) ||
           (this.cbs.ondeclaration(this.sectionStart, this.index),
           (this.state = b.Text),
           (this.sectionStart = this.index + 1));
       }
       stateInProcessingInstruction(e) {
-        (e !== S.Gt && !this.fastForwardTo(S.Gt)) ||
+        (e !== I.Gt && !this.fastForwardTo(I.Gt)) ||
           (this.cbs.onprocessinginstruction(this.sectionStart, this.index),
           (this.state = b.Text),
           (this.sectionStart = this.index + 1));
       }
       stateBeforeComment(e) {
-        e === S.Dash
+        e === I.Dash
           ? ((this.state = b.InCommentLike),
             (this.currentSequence = R.CommentEnd),
             (this.sequenceIndex = 2),
@@ -12140,7 +12140,7 @@ var aoty = (() => {
           : (this.state = b.InDeclaration);
       }
       stateInSpecialComment(e) {
-        (e !== S.Gt && !this.fastForwardTo(S.Gt)) ||
+        (e !== I.Gt && !this.fastForwardTo(I.Gt)) ||
           (this.cbs.oncomment(this.sectionStart, this.index, 0),
           (this.state = b.Text),
           (this.sectionStart = this.index + 1));
@@ -12156,9 +12156,9 @@ var aoty = (() => {
       stateBeforeEntity(e) {
         (this.entityExcess = 1),
           (this.entityResult = 0),
-          e === S.Number
+          e === I.Number
             ? (this.state = b.BeforeNumericEntity)
-            : e !== S.Amp &&
+            : e !== I.Amp &&
               ((this.trieIndex = 0),
               (this.trieCurrent = this.entityTrie[0]),
               (this.state = b.InNamedEntity),
@@ -12178,7 +12178,7 @@ var aoty = (() => {
             : ((this.trieCurrent = this.entityTrie[this.trieIndex]),
               (t = this.trieCurrent & l.VALUE_LENGTH) &&
                 ((t = (t >> 14) - 1),
-                this.allowLegacyEntity() || e === S.Semi
+                this.allowLegacyEntity() || e === I.Semi
                   ? ((e = this.index - this.entityExcess + 1) >
                       this.sectionStart &&
                       this.emitPartial(this.sectionStart, e),
@@ -12206,7 +12206,7 @@ var aoty = (() => {
           }
       }
       stateBeforeNumericEntity(e) {
-        (32 | e) === S.LowerX
+        (32 | e) === I.LowerX
           ? (this.entityExcess++, (this.state = b.InHexEntity))
           : ((this.state = b.InNumericEntity), this.stateInNumericEntity(e));
       }
@@ -12215,14 +12215,14 @@ var aoty = (() => {
         2 + t + Number(this.state === b.InHexEntity) !== this.index &&
           (t > this.sectionStart && this.emitPartial(this.sectionStart, t),
           (this.sectionStart = this.index + Number(e)),
-          this.emitCodePoint(Se(this.entityResult))),
+          this.emitCodePoint(Ie(this.entityResult))),
           (this.state = this.baseState);
       }
       stateInNumericEntity(e) {
-        e === S.Semi
+        e === I.Semi
           ? this.emitNumericEntity(!0)
-          : Qi(e)
-          ? ((this.entityResult = 10 * this.entityResult + (e - S.Zero)),
+          : ji(e)
+          ? ((this.entityResult = 10 * this.entityResult + (e - I.Zero)),
             this.entityExcess++)
           : (this.allowLegacyEntity()
               ? this.emitNumericEntity(!1)
@@ -12230,14 +12230,14 @@ var aoty = (() => {
             this.index--);
       }
       stateInHexEntity(e) {
-        e === S.Semi
+        e === I.Semi
           ? this.emitNumericEntity(!0)
-          : Qi(e)
-          ? ((this.entityResult = 16 * this.entityResult + (e - S.Zero)),
+          : ji(e)
+          ? ((this.entityResult = 16 * this.entityResult + (e - I.Zero)),
             this.entityExcess++)
           : Wi(e)
           ? ((this.entityResult =
-              16 * this.entityResult + ((32 | e) - S.LowerA + 10)),
+              16 * this.entityResult + ((32 | e) - I.LowerA + 10)),
             this.entityExcess++)
           : (this.allowLegacyEntity()
               ? this.emitNumericEntity(!1)
@@ -12533,7 +12533,7 @@ var aoty = (() => {
           r,
           n = this.tokenizer.getSectionStart();
         (this.endIndex = n - 1),
-          null != (r = (t = this.cbs).ontext) && r.call(t, Ie(e)),
+          null != (r = (t = this.cbs).ontext) && r.call(t, Se(e)),
           (this.startIndex = n);
       }
       isVoidElement(e) {
@@ -12636,7 +12636,7 @@ var aoty = (() => {
         this.attribvalue += this.getSlice(e, t);
       }
       onattribentity(e) {
-        this.attribvalue += Ie(e);
+        this.attribvalue += Se(e);
       }
       onattribend(e, t) {
         var r;
@@ -12803,12 +12803,12 @@ var aoty = (() => {
         : ((t = e),
           !Array.isArray(t) && Te(t) ? t : (Ln(t, (r = new le([]))), r));
     }),
-    (no = (e, t) => (t.xmlMode || t._useHtmlParser2 ? je(e, t) : qi(e)));
+    (no = (e, t) => (t.xmlMode || t._useHtmlParser2 ? Qe(e, t) : qi(e)));
   var ro,
     no,
     ao = (function e(t, r, n = !0) {
       if (null == t) throw new Error("cheerio.load() expects a string");
-      const o = { ...Q, ...W(r) },
+      const o = { ...j, ...W(r) },
         c = ro(t, o, n, null);
       class l extends qn {
         _make(e, t) {
@@ -12915,7 +12915,7 @@ var aoty = (() => {
     [_o, go, No, Co] = ["ReadableStream", "Request", "Response", "Headers"].map(
       p
     );
-  function Io(t, r, { allOwnKeys: n = !1 } = {}) {
+  function So(t, r, { allOwnKeys: n = !1 } = {}) {
     if (null != t) {
       let e;
       var a;
@@ -12929,7 +12929,7 @@ var aoty = (() => {
       }
     }
   }
-  function So(e, t) {
+  function Io(e, t) {
     t = t.toLowerCase();
     var r,
       n = Object.keys(e);
@@ -12957,7 +12957,7 @@ var aoty = (() => {
     Mo = (n, a) => {
       var e = Object.getOwnPropertyDescriptors(n);
       const s = {};
-      Io(e, (e, t) => {
+      So(e, (e, t) => {
         var r;
         !1 !== (r = a(e, t, n)) && (s[t] = r || e);
       }),
@@ -13018,12 +13018,12 @@ var aoty = (() => {
       isURLSearchParams: D,
       isTypedArray: Lo,
       isFileList: Ao,
-      forEach: Io,
+      forEach: So,
       merge: function r() {
         const n = ((Ro(this) && this) || {}).caseless,
           a = {};
         var s = (e, t) => {
-          (t = (n && So(a, t)) || t),
+          (t = (n && Io(a, t)) || t),
             fo(a[t]) && fo(e)
               ? (a[t] = r(a[t], e))
               : fo(e)
@@ -13033,11 +13033,11 @@ var aoty = (() => {
               : (a[t] = e);
         };
         for (let e = 0, t = arguments.length; e < t; e++)
-          arguments[e] && Io(arguments[e], s);
+          arguments[e] && So(arguments[e], s);
         return a;
       },
       extend: (r, e, n, { allOwnKeys: t } = {}) => (
-        Io(
+        So(
           e,
           (e, t) => {
             n && po(e) ? (r[t] = so(e, n)) : (r[t] = e);
@@ -13137,7 +13137,7 @@ var aoty = (() => {
       noop: () => {},
       toFiniteNumber: (e, t) =>
         null != e && Number.isFinite((e = +e)) ? e : t,
-      findKey: So,
+      findKey: Io,
       global: bo,
       isContextDefined: Ro,
       ALPHABET: Bo,
@@ -13163,7 +13163,7 @@ var aoty = (() => {
                 t[r] = e;
                 const n = ho(e) ? [] : {};
                 return (
-                  Io(e, (e, t) => {
+                  So(e, (e, t) => {
                     e = a(e, r + 1);
                     uo(e) || (n[t] = e);
                   }),
@@ -13347,7 +13347,7 @@ var aoty = (() => {
       );
     throw new TypeError("data must be an object");
   };
-  function Qo(e) {
+  function jo(e) {
     const t = {
       "!": "%21",
       "'": "%27",
@@ -13361,10 +13361,10 @@ var aoty = (() => {
       return t[e];
     });
   }
-  function jo(e, t) {
+  function Qo(e, t) {
     (this._pairs = []), e && Vo(e, this, t);
   }
-  var wo = jo.prototype,
+  var wo = Qo.prototype,
     Wo =
       ((wo.append = function (e, t) {
         this._pairs.push([e, t]);
@@ -13372,16 +13372,16 @@ var aoty = (() => {
       (wo.toString = function (t) {
         const r = t
           ? function (e) {
-              return t.call(this, e, Qo);
+              return t.call(this, e, jo);
             }
-          : Qo;
+          : jo;
         return this._pairs
           .map(function (e) {
             return r(e[0]) + "=" + r(e[1]);
           }, "")
           .join("&");
       }),
-      jo);
+      Qo);
   function Xo(e) {
     return encodeURIComponent(e)
       .replace(/%3A/gi, ":")
@@ -13924,7 +13924,7 @@ var aoty = (() => {
       }
     );
   };
-  var Ic = function (r, e) {
+  var Sc = function (r, e) {
       let n = 0;
       const a = 1e3 / e;
       let s = null;
@@ -13945,10 +13945,10 @@ var aoty = (() => {
           );
       };
     },
-    Sc = (i, o, e = 3) => {
+    Ic = (i, o, e = 3) => {
       let c = 0;
       const l = Cc(50, 250);
-      return Ic((e) => {
+      return Sc((e) => {
         var t = e.loaded,
           r = e.lengthComputable ? e.total : void 0,
           n = t - c,
@@ -14237,10 +14237,10 @@ var aoty = (() => {
               (c.withCredentials = !!n.withCredentials),
             s && "json" !== s && (c.responseType = n.responseType),
             "function" == typeof n.onDownloadProgress &&
-              c.addEventListener("progress", Sc(n.onDownloadProgress, !0)),
+              c.addEventListener("progress", Ic(n.onDownloadProgress, !0)),
             "function" == typeof n.onUploadProgress &&
               c.upload &&
-              c.upload.addEventListener("progress", Sc(n.onUploadProgress)),
+              c.upload.addEventListener("progress", Ic(n.onUploadProgress)),
             (n.cancelToken || n.signal) &&
               ((i = (e) => {
                 c &&
@@ -14451,7 +14451,7 @@ var aoty = (() => {
               O.isFormData(s) &&
                 (e = _.headers.get("content-type")) &&
                 h.setContentType(e),
-                _.body && (s = wc(_.body, 65536, Bc(A, Sc(c)), null, xc));
+                _.body && (s = wc(_.body, 65536, Bc(A, Ic(c)), null, xc));
             }
             O.isString(u) || (u = u ? "cors" : "omit"),
               (m = new Request(t, {
@@ -14472,7 +14472,7 @@ var aoty = (() => {
               });
               var N = O.toFiniteNumber(r.headers.get("content-length"));
               r = new Response(
-                wc(r.body, 65536, o && Bc(N, Sc(o, !0)), g && f, xc),
+                wc(r.body, 65536, o && Bc(N, Ic(o, !0)), g && f, xc),
                 C
               );
             }
@@ -14553,16 +14553,16 @@ var aoty = (() => {
         ))
       );
     };
-  function Qc(e) {
+  function jc(e) {
     if (
       (e.cancelToken && e.cancelToken.throwIfRequested(),
       e.signal && e.signal.aborted)
     )
       throw new gc(null, e);
   }
-  function jc(t) {
+  function Qc(t) {
     return (
-      Qc(t),
+      jc(t),
       (t.headers = mc.from(t.headers)),
       (t.data = fc.call(t, t.transformRequest)),
       -1 !== ["post", "put", "patch"].indexOf(t.method) &&
@@ -14570,7 +14570,7 @@ var aoty = (() => {
       Vc(t.adapter || sc.adapter)(t).then(
         function (e) {
           return (
-            Qc(t),
+            jc(t),
             (e.data = fc.call(t, t.transformResponse, e)),
             (e.headers = mc.from(e.headers)),
             e
@@ -14579,7 +14579,7 @@ var aoty = (() => {
         function (e) {
           return (
             Ac(e) ||
-              (Qc(t),
+              (jc(t),
               e &&
                 e.response &&
                 ((e.response.data = fc.call(
@@ -14752,13 +14752,13 @@ var aoty = (() => {
             }
           }
           try {
-            c = jc.call(this, e);
+            c = Qc.call(this, e);
           } catch (e) {
             return Promise.reject(e);
           }
           for (l = 0, h = o.length; l < h; ) c = c.then(o[l++], o[l++]);
         } else {
-          var E = [jc.bind(this), void 0];
+          var E = [Qc.bind(this), void 0];
           for (
             E.unshift.apply(E, s),
               E.push.apply(E, o),
@@ -14978,24 +14978,48 @@ var aoty = (() => {
       (D.default = D)),
     {} = cl,
     ll = Spicetify["Player"],
-    hl = "False";
-  new Spicetify.Topbar.Button(
-    "RefreshScore",
-    `
+    hl = "False",
+    Lo =
+      (new Spicetify.Topbar.Button(
+        "RefreshScore",
+        `
 <?xml version="1.0" ?><svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></svg>`,
-    async function () {
-      var e = Date.now();
-      e - rl < 5e3
-        ? Spicetify.showNotification(
-            `You are on cooldown. Please wait ${
-              (5e3 - (e - rl)) / 1e3
-            } seconds to avoid hitting the rate limit.`
-          )
-        : ((hl = "True"), (rl = Date.now()), console.log("refreshing"), fl());
-    },
-    !1
-  );
-  function ul() {
+        async function () {
+          var e = Date.now();
+          e - rl < 5e3
+            ? dl &&
+              Spicetify.showNotification(
+                `You are on cooldown. Please wait ${
+                  (5e3 - (e - rl)) / 1e3
+                } seconds to avoid hitting the rate limit.`
+              )
+            : ((hl = "True"),
+              (rl = Date.now()),
+              console.log("refreshing"),
+              gl());
+        },
+        !1
+      ),
+      new Spicetify.Topbar.Button(
+        "ClearScore",
+        `
+<?xml version="1.0" ?><svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M 8.386719 1.800781 L 7.785156 2.398438 L 3.601562 2.398438 L 3.601562 4.800781 L 20.398438 4.800781 L 20.398438 2.398438 L 16.214844 2.398438 L 15.613281 1.800781 L 15.015625 1.199219 L 8.984375 1.199219 Z M 8.386719 1.800781 M 4.804688 13.402344 C 4.816406 20.230469 4.816406 20.816406 4.867188 20.96875 C 4.964844 21.300781 5.046875 21.480469 5.191406 21.699219 C 5.527344 22.222656 5.996094 22.554688 6.644531 22.734375 C 6.808594 22.78125 7.261719 22.785156 12 22.785156 C 16.738281 22.785156 17.191406 22.78125 17.355469 22.734375 C 18.003906 22.554688 18.472656 22.222656 18.808594 21.699219 C 18.953125 21.480469 19.035156 21.300781 19.132812 20.96875 C 19.183594 20.816406 19.183594 20.230469 19.195312 13.402344 L 19.199219 6 L 4.800781 6 Z M 4.804688 13.402344 "/></svg>`,
+        pl,
+        !1
+      ),
+      (t, e) => {
+        t = localStorage.getItem(t);
+        if (!t) return e;
+        try {
+          return JSON.parse(t);
+        } catch (e) {
+          return t;
+        }
+      }),
+    ul = Lo(void 0, !0),
+    dl = Lo(void 0, !1),
+    El = Lo(void 0, !0);
+  function pl() {
     if (ol && nl) {
       console.log("clearing");
       try {
@@ -15019,7 +15043,7 @@ var aoty = (() => {
       } catch (e) {}
     }
   }
-  function dl(e, t) {
+  function Tl(e, t) {
     var r = e,
       n = t,
       t = (e.length < t.length && ((r = t), (n = e)), r.length);
@@ -15044,27 +15068,20 @@ var aoty = (() => {
           })(r, n)) /
           parseFloat(t);
   }
-  async function El(e) {
+  async function ml(e) {
     return await cl.get("https://proxy.life23243.workers.dev/?" + e, {
       headers: { "User-Agent": "Mozilla/5.0" },
     });
   }
-  function pl(t) {
-    return new Promise((e) => setTimeout(e, t));
+  function fl(t) {
+    new Promise((e) => setTimeout(e, t));
   }
-  new Spicetify.Topbar.Button(
-    "ClearScore",
-    `
-<?xml version="1.0" ?><svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M 8.386719 1.800781 L 7.785156 2.398438 L 3.601562 2.398438 L 3.601562 4.800781 L 20.398438 4.800781 L 20.398438 2.398438 L 16.214844 2.398438 L 15.613281 1.800781 L 15.015625 1.199219 L 8.984375 1.199219 Z M 8.386719 1.800781 M 4.804688 13.402344 C 4.816406 20.230469 4.816406 20.816406 4.867188 20.96875 C 4.964844 21.300781 5.046875 21.480469 5.191406 21.699219 C 5.527344 22.222656 5.996094 22.554688 6.644531 22.734375 C 6.808594 22.78125 7.261719 22.785156 12 22.785156 C 16.738281 22.785156 17.191406 22.78125 17.355469 22.734375 C 18.003906 22.554688 18.472656 22.222656 18.808594 21.699219 C 18.953125 21.480469 19.035156 21.300781 19.132812 20.96875 C 19.183594 20.816406 19.183594 20.230469 19.195312 13.402344 L 19.199219 6 L 4.800781 6 Z M 4.804688 13.402344 "/></svg>`,
-    ul,
-    !1
-  );
-  var Tl = class extends Error {
+  var Al = class extends Error {
     constructor(e) {
       super(e);
     }
   };
-  async function ml(t, r, e) {
+  async function _l(t, r, e) {
     let n = "https://www.albumoftheyear.orgundefined";
     1 == e &&
       (n =
@@ -15075,7 +15092,7 @@ var aoty = (() => {
           "https://www.albumoftheyear.org/search/albums/?q=" +
           encodeURIComponent(r)),
       console.log(n);
-    e = await El(n);
+    e = await ml(n);
     console.log(e);
     let a = ao.load(e.data),
       s = "https://www.albumoftheyear.orgundefined",
@@ -15112,30 +15129,30 @@ var aoty = (() => {
       for (let e = 0; e < d.length; e++) {
         var m = d.length - (e + 1);
         0 != m &&
-          ((i += `"${dl(d[m], t)}": "${d[m]}",
+          ((i += `"${Tl(d[m], t)}": "${d[m]}",
 `),
           (o += `"${d[m]}": "${
             a(".artistTitle")[m].parentNode.parentNode.children[2].attribs.href
           }",
 `),
-          (c += `"${d[m]}": "${dl(d[m], t)}",
+          (c += `"${d[m]}": "${Tl(d[m], t)}",
 `),
           (l += `"${d[m]}": ${E[m]}
 `),
-          T.push(dl(d[m], t)),
+          T.push(Tl(d[m], t)),
           (u += `"${E[m].replaceAll('"', '\\"')}": "${
             a(".artistTitle")[m].parentNode.parentNode.children[2].attribs.href
           }",
 `)),
           0 == m &&
-            ((i += `"${dl(d[m], t)}": "${d[m]}"
+            ((i += `"${Tl(d[m], t)}": "${d[m]}"
 }`),
             (o += `"${d[m]}": "${
               a(".artistTitle")[m].parentNode.parentNode.children[2].attribs
                 .href
             }"
 }`),
-            (c += `"${d[m]}": "${dl(d[m], t)}"
+            (c += `"${d[m]}": "${Tl(d[m], t)}"
 }`),
             (l += `"${d[m]}": ` + E[m]),
             (u += `"${E[m].replaceAll('"', '\\"')}": "${
@@ -15143,7 +15160,7 @@ var aoty = (() => {
                 .href
             }"
 }`),
-            T.push(dl(d[m], t)));
+            T.push(Tl(d[m], t)));
       }
       var f = [],
         A = [],
@@ -15157,12 +15174,12 @@ var aoty = (() => {
       if (1 < f.length)
         for (let e = 0; e < f.length; e++)
           e !== f.length - 1 &&
-            (h += `"${dl(f[e], r)}": "${f[e].replaceAll('"', '\\"')}",
+            (h += `"${Tl(f[e], r)}": "${f[e].replaceAll('"', '\\"')}",
 `),
             e == f.length - 1 &&
-              (h += `"${dl(f[e], r)}": "${f[e].replaceAll('"', '\\"')}"
+              (h += `"${Tl(f[e], r)}": "${f[e].replaceAll('"', '\\"')}"
 }`),
-            A.push(dl(f[e], r));
+            A.push(Tl(f[e], r));
       1 <= f.length &&
         ((C = JSON.parse(h)[A.reduce((e, t) => Math.max(e, t), -1 / 0)]),
         (s = "https://www.albumoftheyear.org" + JSON.parse(u)[C])),
@@ -15173,34 +15190,36 @@ var aoty = (() => {
     if ("https://www.albumoftheyear.orgundefined" == s) {
       if (500 == e.status)
         return (
-          pl(3e3),
-          Spicetify.showNotification("Request failed, retrying."),
+          fl(3e3),
+          dl && Spicetify.showNotification("Request failed, retrying."),
           "noo"
         );
       if (200 == e.status)
         return (
-          Spicetify.showNotification(
-            "No release found on AOTY, searching just the album title without artist name (may return inaccurate results)"
-          ),
+          dl &&
+            El &&
+            Spicetify.showNotification(
+              "No release found on AOTY, searching just the album title without artist name (may return inaccurate results)"
+            ),
           "no"
         );
       if (429 == e.status)
         return (
-          pl(3e3),
-          Spicetify.showNotification("Request failed, retrying."),
+          fl(3e3),
+          dl && Spicetify.showNotification("Request failed, retrying."),
           "noo"
         );
     }
     console.log(s);
-    var C = await El(s),
-      I = ao.load(C.data),
-      e = I(
+    var C = await ml(s),
+      S = ao.load(C.data),
+      e = S(
         "#centerContent > div.fullWidth > div:nth-child(4) > div.albumUserScoreBox > div.text.numReviews > a > strong"
       ).text(),
-      C = I(
+      C = S(
         "#tracklist > div.trackList > table > tbody > tr:nth-child(1) > td.trackRating > span"
       ).text();
-    let S = "False",
+    let I = "False",
       b = "",
       R = "",
       D = "",
@@ -15211,20 +15230,20 @@ var aoty = (() => {
       v = 0,
       M;
     if (1 == /^-?\d+$/.test(C)) {
-      S = "True";
+      I = "True";
       let e = 1;
-      var P = I(".discNumber"),
+      var P = S(".discNumber"),
         B = [];
       if (0 < P.length) {
         for (let e = 0; e < P.length; e++)
-          (M = I(".rightBox").find(".trackListTable").get(e)),
-            (k = I(M).children("tbody").children("tr").length),
+          (M = S(".rightBox").find(".trackListTable").get(e)),
+            (k = S(M).children("tbody").children("tr").length),
             B.push(k);
         v = B.reduce((e, t) => Math.max(e, t), -1 / 0);
       }
       P.length <= 0 &&
-        ((M = I(".rightBox").find(".trackListTable").get(0)),
-        (k = I(M).children("tbody").children("tr").length),
+        ((M = S(".rightBox").find(".trackListTable").get(0)),
+        (k = S(M).children("tbody").children("tr").length),
         (v = k));
       let t,
         i,
@@ -15239,16 +15258,16 @@ var aoty = (() => {
         let r = 0,
           n =
             (0 < P.length && (i = o - 1),
-            (M = I(".rightBox").find(".trackListTable").get(Number(i))),
-            (k = I(M).children("tbody").children("tr").length),
+            (M = S(".rightBox").find(".trackListTable").get(Number(i))),
+            (k = S(M).children("tbody").children("tr").length),
             ""),
           a = "",
           s = "";
         for (e = 0; e < v; e++) {
-          var w = I(
+          var w = S(
               `#tracklist > div.trackList > table > tbody > tr:nth-child(${++r}) > td.trackRating > span`
             ),
-            x = I(
+            x = S(
               `#tracklist > div.trackList > table > tbody > tr:nth-child(${r}) > td.trackTitle > a`
             );
           let e, t;
@@ -15257,15 +15276,15 @@ var aoty = (() => {
             ((n += "00&"), (a += "/song/undefined"), (s += "0 Ratings&")),
             w.length !== P.length &&
               k == v &&
-              ((e = I(w[w.length - 1])),
+              ((e = S(w[w.length - 1])),
               (n += e.text() + "&"),
-              (t = I(x[w.length - 1])),
+              (t = S(x[w.length - 1])),
               (a += t.attr("href")),
               (s += e.attr("title") + "&")),
             w.length == P.length &&
-              ((e = I(w[Number(i)])),
+              ((e = S(w[Number(i)])),
               (n += e.text() + "&"),
-              (t = I(x[Number(i)])),
+              (t = S(x[Number(i)])),
               (a += t.attr("href")),
               (s += e.attr("title") + "&"));
         }
@@ -15287,156 +15306,195 @@ var aoty = (() => {
         (D = JSON.parse(y));
     }
     var C = e.replace(",", ""),
-      F = I(
+      F = S(
         "#centerContent > div.fullWidth > div:nth-child(4) > div.albumUserScoreBox > div.albumUserScore > a"
       ).attr("title"),
       F = parseFloat(F).toFixed(2);
-    return [parseFloat(F), e, s, C, R, S, b, D];
+    return [parseFloat(F), e, s, C, R, I, b, D];
   }
-  async function fl() {
+  async function gl() {
     var s;
-    if (
-      (console.log("update"),
-      Spicetify.Player.data.playbackId || Spicetify.Player.data.playback_id)
-    ) {
-      var i,
-        o,
-        c,
-        l =
-          null != (l = Spicetify.Player.data.playbackId)
-            ? l
-            : Spicetify.Player.data.playback_id;
+    if (ul) {
       if (
-        (l != tl || "False" != hl) &&
-        ((hl = "False"),
-        document.querySelector(
-          "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
-        )
-          ? (ol = document.querySelector(
-              "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
-            ))
-          : document.querySelector(
-              "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
-            ) &&
-            (ol = document.querySelector(
-              "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
-            )),
-        ol)
+        (console.log("update"),
+        Spicetify.Player.data.playbackId || Spicetify.Player.data.playback_id)
       ) {
-        ul(),
-          document.getElementsByClassName("scoreElement").length,
-          document.getElementsByClassName("songScore").length;
-        let {
-          title: e,
-          album_title: t,
-          artist_name: r,
-          album_track_number: n,
-          album_disc_number: a,
-        } = null !=
-        (s = null == (s = Spicetify.Player.data.item) ? void 0 : s.metadata)
-          ? s
-          : null == (s = Spicetify.Player.data.track)
-          ? void 0
-          : s.metadata;
-        if (e && t && r) {
-          tl = l;
-          try {
-            "Weezer" !== r &&
-              (t = (t = (t = t.split(" -")[0]).split(" (")[0]).replace(
-                '"',
-                ""
-              ));
-            let e = await ml(
-              (r =
-                "RÜFÜS DU SOL" ==
-                (r = "Ms. Lauryn Hill" == r ? "Lauryn Hill" : r)
-                  ? "RÜFÜS"
-                  : r),
-              t,
-              !0
-            );
-            if (
-              (e[3] ||
-                ("noo" == (e = "no" == e ? await ml(r, t, !1) : e) &&
-                  ml(artist, album, !0)),
-              1 <= document.getElementsByClassName("scoreElement").length)
-            )
-              for (
-                let e = 0;
-                e < document.getElementsByClassName("scoreElement").length;
-                e++
-              )
-                document.getElementsByClassName("scoreElement")[e].remove();
-            "True" === e[5] &&
-              (document.querySelector(
-                "#main > div > div.Root__top-container.Root__top-container--right-sidebar-visible > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+        var i,
+          o,
+          c,
+          l =
+            null != (l = Spicetify.Player.data.playbackId)
+              ? l
+              : Spicetify.Player.data.playback_id;
+        if (
+          (l != tl || "False" != hl) &&
+          ((hl = "False"),
+          document.querySelector(
+            "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
+          )
+            ? (ol = document.querySelector(
+                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
+              ))
+            : document.querySelector(
+                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
               ) &&
-                (sl = document.querySelector(
+              (ol = document.querySelector(
+                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+              )),
+          ol)
+        ) {
+          pl(),
+            document.getElementsByClassName("scoreElement").length,
+            document.getElementsByClassName("songScore").length;
+          let {
+            title: e,
+            album_title: t,
+            artist_name: r,
+            album_track_number: n,
+            album_disc_number: a,
+          } = null !=
+          (s = null == (s = Spicetify.Player.data.item) ? void 0 : s.metadata)
+            ? s
+            : null == (s = Spicetify.Player.data.track)
+            ? void 0
+            : s.metadata;
+          if (e && t && r) {
+            tl = l;
+            try {
+              "Weezer" !== r &&
+                (t = (t = (t = t.split(" -")[0]).split(" (")[0]).replace(
+                  '"',
+                  ""
+                ));
+              let e = await _l(
+                (r =
+                  "RÜFÜS DU SOL" ==
+                  (r = "Ms. Lauryn Hill" == r ? "Lauryn Hill" : r)
+                    ? "RÜFÜS"
+                    : r),
+                t,
+                !0
+              );
+              if (
+                (e[3] ||
+                  ("noo" == (e = "no" == e && El ? await _l(r, t, !1) : e) &&
+                    _l(artist, album, !0)),
+                1 <= document.getElementsByClassName("scoreElement").length)
+              )
+                for (
+                  let e = 0;
+                  e < document.getElementsByClassName("scoreElement").length;
+                  e++
+                )
+                  document.getElementsByClassName("scoreElement")[e].remove();
+              "True" === e[5] &&
+                (document.querySelector(
                   "#main > div > div.Root__top-container.Root__top-container--right-sidebar-visible > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
-                )),
-              document.querySelector(
-                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
-              ) &&
-                (sl = document.querySelector(
+                ) &&
+                  (sl = document.querySelector(
+                    "#main > div > div.Root__top-container.Root__top-container--right-sidebar-visible > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+                  )),
+                document.querySelector(
                   "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
-                )),
-              (sl = document.querySelector(
-                "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
-              )
-                ? document.querySelector(
-                    "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
-                  )
-                : sl)) &&
-              ((al = document.createElement("a")),
-              (i = e[4][Number(a) - 1].split("&")[Number(n) - 1]),
-              (al.className = "songScore"),
-              69.5 <= i && (al.style.color = "#85ce73"),
-              49.5 <= i && i < 69.5 && (al.style.color = "#f0e68c"),
-              i < 49.5 && (al.style.color = "#d76666"),
-              "undefined" != i && (al.innerText = `    [${i}]`),
-              (o = String(e[6][Number(a) - 1]).split("/song")[Number(n)]),
-              (al.href = "https://albumoftheyear.org/song" + o),
-              (al.style.fontSize = "10px"),
-              (al.style.fontWeight = "bold"),
-              (c = e[7][Number(a) - 1].split("&")[Number(n) - 1]),
-              (al.title = c),
-              (il = sl.children[0]),
-              90 <= i &&
-                25 <= c.split("Ratings")[0] &&
-                (il.style.fontWeight = "bold"),
-              sl.appendChild(al)),
-              ((divContainer = document.createElement("div")).style.gridArea =
-                "rating"),
-              (nl = document.createElement("a")),
-              divContainer.appendChild(nl),
-              (divContainer.className = "scoreElement"),
-              69.5 <= e[0] && (nl.style.color = "#85ce73"),
-              49.5 <= e[0] && e[0] < 69.5 && (nl.style.color = "#f0e68c"),
-              e[0] < 49.5 && (nl.style.color = "#d76666"),
-              0 < e[3] && (nl.innerText = `${e[0]} (${e[1]} ratings)`),
-              0 == e[3] &&
-                ((nl.style.color = "var(--spice-extratext)"),
-                (nl.innerText = "No Ratings.")),
-              (nl.href = String(e[2])),
-              (nl.style.fontSize = "12px"),
-              (ol.style.gridTemplate =
-                '"title title" "badges subtitle" "genres genres" "rating rating" / auto 1fr auto auto'),
-              ol.appendChild(divContainer);
-          } catch (e) {
-            e instanceof Tl
-              ? (console.log("Failed to get AOTY rating:", e.message),
-                console.log(e))
-              : console.log("Unknown error", e);
+                ) &&
+                  (sl = document.querySelector(
+                    "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container > div.main-trackInfo-name > div > div > div > div > span"
+                  )),
+                (sl = document.querySelector(
+                  "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
+                )
+                  ? document.querySelector(
+                      "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
+                    )
+                  : sl)) &&
+                ((al = document.createElement("a")),
+                (i = e[4][Number(a) - 1].split("&")[Number(n) - 1]),
+                (al.className = "songScore"),
+                69.5 <= i && (al.style.color = "#85ce73"),
+                49.5 <= i && i < 69.5 && (al.style.color = "#f0e68c"),
+                i < 49.5 && (al.style.color = "#d76666"),
+                "undefined" != i && (al.innerText = `    [${i}]`),
+                (o = String(e[6][Number(a) - 1]).split("/song")[Number(n)]),
+                (al.href = "https://albumoftheyear.org/song" + o),
+                (al.style.fontSize = "10px"),
+                (al.style.fontWeight = "bold"),
+                (c = e[7][Number(a) - 1].split("&")[Number(n) - 1]),
+                (al.title = c),
+                (il = sl.children[0]),
+                90 <= i &&
+                  25 <= c.split("Ratings")[0] &&
+                  (il.style.fontWeight = "bold"),
+                sl.appendChild(al)),
+                ((divContainer = document.createElement("div")).style.gridArea =
+                  "rating"),
+                (nl = document.createElement("a")),
+                divContainer.appendChild(nl),
+                (divContainer.className = "scoreElement"),
+                69.5 <= e[0] && (nl.style.color = "#85ce73"),
+                49.5 <= e[0] && e[0] < 69.5 && (nl.style.color = "#f0e68c"),
+                e[0] < 49.5 && (nl.style.color = "#d76666"),
+                0 < e[3] && (nl.innerText = `${e[0]} (${e[1]} ratings)`),
+                0 == e[3] &&
+                  ((nl.style.color = "var(--spice-extratext)"),
+                  (nl.innerText = "No Ratings.")),
+                (nl.href = String(e[2])),
+                (nl.style.fontSize = "12px"),
+                (ol.style.gridTemplate =
+                  '"title title" "badges subtitle" "genres genres" "rating rating" / auto 1fr auto auto'),
+                ol.appendChild(divContainer);
+            } catch (e) {
+              e instanceof Al
+                ? (console.log("Failed to get AOTY rating:", e.message),
+                  console.log(e))
+                : console.log("Unknown error", e);
+            }
           }
         }
       }
-    }
+    } else pl();
   }
   (async () => {
     (async function () {
       for (; !Spicetify.CosmosAsync || !Spicetify.showNotification; )
-        await pl(500);
-      fl(), ll.addEventListener("songchange", fl);
+        await new Promise((e) => setTimeout(e, 100));
+      var e = new Spicetify.Menu.Item("Enabled", ul, (e) => {
+          (ul = !ul),
+            localStorage.setItem("AotyEnabled", ul),
+            e.setState(ul),
+            apply();
+        }),
+        t = new Spicetify.Menu.Item("Show Notifications", dl, (e) => {
+          (dl = !dl),
+            localStorage.setItem("AotyHideNotificationMode", dl),
+            e.setState(dl);
+        }),
+        r = new Spicetify.Menu.Item("Aggressive Search", El, (e) => {
+          (El = !El),
+            localStorage.setItem("AotyShowPotentiallyInaccurateResults", El),
+            e.setState(El);
+        });
+      new Spicetify.Menu.SubMenu("Albumoftheyear Config", [e, t, r]).register(),
+        gl(),
+        ll.addEventListener("songchange", gl),
+        null !==
+          Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") &&
+          "v1.1.0" !==
+            Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") &&
+          Spicetify.PopupModal.display({
+            title: "New in Spicetify AOTY v1.1.0",
+            content: `<h2>General</h2>
+    <ul style="list-style:inherit;margin-left:1.5em">
+    <li style="list-style:inherit;">Configuration menu in the profile dropdown</li>
+    <br>
+    <li>Enable/disable the extension, show/hide notifications, and enable/disable aggressive search.</li> 
+    <br>
+    <li>Aggressive search will search just the album title if the artist name is not found on AOTY. This may return inaccurate results.</li></ul>`,
+            isLarge: !0,
+          }),
+        Spicetify.LocalStorage.set(
+          "whats-new_Spicetify-Aoty-version",
+          "v1.1.0"
+        );
     })();
   })();
 })();

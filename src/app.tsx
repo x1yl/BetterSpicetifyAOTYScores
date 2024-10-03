@@ -32,12 +32,39 @@ const CLEAR_ICON = `
 <?xml version="1.0" ?><svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M 8.386719 1.800781 L 7.785156 2.398438 L 3.601562 2.398438 L 3.601562 4.800781 L 20.398438 4.800781 L 20.398438 2.398438 L 16.214844 2.398438 L 15.613281 1.800781 L 15.015625 1.199219 L 8.984375 1.199219 Z M 8.386719 1.800781 M 4.804688 13.402344 C 4.816406 20.230469 4.816406 20.816406 4.867188 20.96875 C 4.964844 21.300781 5.046875 21.480469 5.191406 21.699219 C 5.527344 22.222656 5.996094 22.554688 6.644531 22.734375 C 6.808594 22.78125 7.261719 22.785156 12 22.785156 C 16.738281 22.785156 17.191406 22.78125 17.355469 22.734375 C 18.003906 22.554688 18.472656 22.222656 18.808594 21.699219 C 18.953125 21.480469 19.035156 21.300781 19.132812 20.96875 C 19.183594 20.816406 19.183594 20.230469 19.195312 13.402344 L 19.199219 6 L 4.800781 6 Z M 4.804688 13.402344 "/></svg>`;
 new Spicetify.Topbar.Button("ClearScore", CLEAR_ICON, clearRating, false);
 
+const getLocalStorageDataFromKey = (key: string, fallback?: unknown) => {
+  const data = localStorage.getItem(key);
+
+  if (data) {
+    try {
+      // If it's json parse it
+      return JSON.parse(data);
+    } catch (err) {
+      // If it's just a string or something
+      return data;
+    }
+  } else {
+    return fallback;
+  }
+};
+
 // Setting up HTML elements.
 let ratingContainer: HTMLAnchorElement;
 let songRating: HTMLAnchorElement;
 let songTitleBox: HTMLAnchorElement | null;
 let songTitle: HTMLAnchorElement;
 let infoContainer: HTMLElement | null;
+
+let isEnabled = getLocalStorageDataFromKey(SETTINGS_KEY, true);
+let notification = getLocalStorageDataFromKey(NOTIFICATION_KEY, false);
+let ShowPotentiallyInaccurateResult = getLocalStorageDataFromKey(
+  AGGRESSIVE_SEARCH_KEY,
+  true
+);
+
+let SETTINGS_KEY = "AotyEnabled";
+let NOTIFICATION_KEY = "AotyHideNotificationMode";
+let AGGRESSIVE_SEARCH_KEY = "AotyShowPotentiallyInaccurateResults";
 
 // Function to determine how many times a certain string appears in another string.
 // Used in part of a fix to more accurately get releases.
@@ -128,6 +155,7 @@ function isNumeric(value: any) {
 }
 // Importing axios for requests.
 import axios from "axios";
+import { not } from "cheerio/lib/api/traversing";
 // Fetch function.
 export async function fetch(url: string) {
   // Fetching the URL with a proxy to avoid CORS issues.
@@ -408,23 +436,24 @@ async function getPageLink(
     if (res.status == 500) {
       // Wait 3 seconds and resend request.
       sleep(3000);
-      Spicetify.showNotification(`Request failed, retrying.`);
+      if (notification) Spicetify.showNotification(`Request failed, retrying.`);
       return "noo";
     }
     if (res.status == 200) {
       // If the server did send a response but URL was still not able to be obtained.
       // Try searching again but only for the album and then get the artist name most similar in the case
       // the artist has a different name on AOTY.
-      Spicetify.showNotification(
-        `No release found on AOTY, searching just the album title without artist name (may return inaccurate results)`
-      );
+      if (notification && ShowPotentiallyInaccurateResult)
+        Spicetify.showNotification(
+          `No release found on AOTY, searching just the album title without artist name (may return inaccurate results)`
+        );
       // clearRating()
       // getPageLink(artist, album, false);
       return "no";
     }
     if (res.status == 429) {
       sleep(3000);
-      Spicetify.showNotification(`Request failed, retrying.`);
+      if (notification) Spicetify.showNotification(`Request failed, retrying.`);
       return "noo";
     }
   }
@@ -624,11 +653,12 @@ async function refreshrequest() {
   let now = Date.now();
   // If it has been less than 5 seconds since the last attempt at running this send notification and don't run the main function.
   if (now - prevRequest < RATE_LIMIT) {
-    Spicetify.showNotification(
-      `You are on cooldown. Please wait ${
-        (RATE_LIMIT - (now - prevRequest)) / 1000
-      } seconds to avoid hitting the rate limit.`
-    );
+    if (notification)
+      Spicetify.showNotification(
+        `You are on cooldown. Please wait ${
+          (RATE_LIMIT - (now - prevRequest)) / 1000
+        } seconds to avoid hitting the rate limit.`
+      );
     return;
   }
 
@@ -643,6 +673,10 @@ async function refreshrequest() {
   update();
 }
 async function update() {
+  if (!isEnabled) {
+    clearRating();
+    return;
+  }
   console.log("update");
   // Check if there is a track playing
   if (!Spicetify.Player.data.playbackId && !Spicetify.Player.data.playback_id)
@@ -738,7 +772,7 @@ async function update() {
     // Running the function to get the URL and parse it for information with the release.
     let rating: any = await getPageLink(artist_name, album_title, true);
     if (!rating[3]) {
-      if (rating == "no") {
+      if (rating == "no" && ShowPotentiallyInaccurateResult) {
         rating = await getPageLink(artist_name, album_title, false);
       }
       if (rating == "noo") {
@@ -910,9 +944,66 @@ async function update() {
 
 export default async function main() {
   while (!Spicetify.CosmosAsync || !Spicetify.showNotification)
-    await sleep(500);
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+  const enabledMenuItem = new Spicetify.Menu.Item(
+    "Enabled",
+    isEnabled,
+    (self) => {
+      isEnabled = !isEnabled;
+      localStorage.setItem(SETTINGS_KEY, isEnabled);
+      self.setState(isEnabled);
+      apply();
+    }
+  );
+
+  const notificationMenuItem = new Spicetify.Menu.Item(
+    "Show Notifications",
+    notification,
+    (self) => {
+      notification = !notification;
+      localStorage.setItem(NOTIFICATION_KEY, notification);
+      self.setState(notification);
+    }
+  );
+
+  const ShowPotentiallyInaccurateResultMenuItem = new Spicetify.Menu.Item(
+    "Aggressive Search",
+    ShowPotentiallyInaccurateResult,
+    (self) => {
+      ShowPotentiallyInaccurateResult = !ShowPotentiallyInaccurateResult;
+      localStorage.setItem(
+        AGGRESSIVE_SEARCH_KEY,
+        ShowPotentiallyInaccurateResult
+      );
+      self.setState(ShowPotentiallyInaccurateResult);
+    }
+  );
+
+  new Spicetify.Menu.SubMenu("Albumoftheyear Config", [
+    enabledMenuItem,
+    notificationMenuItem,
+    ShowPotentiallyInaccurateResultMenuItem,
+  ]).register();
   update();
   // Run the main function if the song has changed or progress on a song is made.
   // Player.addEventListener("onprogress", update);
   Player.addEventListener("songchange", update);
+  if (
+    Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") !== null &&
+    Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") !== "v1.1.0"
+  ) {
+    Spicetify.PopupModal.display({
+      title: "New in Spicetify AOTY v1.1.0",
+      content: `<h2>General</h2>
+    <ul style="list-style:inherit;margin-left:1.5em">
+    <li style="list-style:inherit;">Configuration menu in the profile dropdown</li>
+    <br>
+    <li>Enable/disable the extension, show/hide notifications, and enable/disable aggressive search.</li> 
+    <br>
+    <li>Aggressive search will search just the album title if the artist name is not found on AOTY. This may return inaccurate results.</li></ul>`,
+      isLarge: true,
+    });
+  }
+  Spicetify.LocalStorage.set("whats-new_Spicetify-Aoty-version", "v1.1.0");
 }
