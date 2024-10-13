@@ -159,15 +159,22 @@ import { not } from "cheerio/lib/api/traversing";
 // Fetch function.
 export async function fetch(url: string) {
   // Fetching the URL with a proxy to avoid CORS issues.
-  const response = await axios.get(
-    "https://proxy.life23243.workers.dev/?" + url,
-    {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-      },
-    }
-  );
-  return response;
+  // Default using a public Cors proxy (possibly breaking)
+  try {
+    let response = await axios.get("https://api.allorigins.win/get?url=" + url);
+    console.log(typeof response.data.contents);
+    return response.data.contents;
+  } catch (error) {
+    let response = await axios.get(
+      "https://proxy.life23243.workers.dev/?" + url,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+        },
+      }
+    );
+    return response.data;
+  }
 }
 
 // Sleep function
@@ -209,7 +216,7 @@ async function getPageLink(
   const res = await fetch(url);
   console.log(res);
 
-  let $$ = cheerio.load(res.data);
+  let $$ = cheerio.load(res);
 
   // If this URL is not changed it will know there has been an error
   let aotyUrl = "https://www.albumoftheyear.orgundefined";
@@ -461,7 +468,7 @@ async function getPageLink(
   let res2 = await fetch(aotyUrl);
 
   // Parsing the HTML to find data to be used.
-  const $ = cheerio.load(res2.data);
+  const $ = cheerio.load(res2);
 
   // Seeing the number of ratings an album has via CSS selector.
   let ratingcount = $(
@@ -944,7 +951,7 @@ async function update() {
 
 export default async function main() {
   while (!Spicetify.CosmosAsync || !Spicetify.showNotification)
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
   const enabledMenuItem = new Spicetify.Menu.Item(
     "Enabled",
