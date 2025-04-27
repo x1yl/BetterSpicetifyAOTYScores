@@ -679,6 +679,13 @@ async function refreshrequest() {
   console.log("refreshing");
   update();
 }
+/**
+ * Updates the Spotify UI with Album of the Year (AOTY) album and track ratings for the currently playing track.
+ *
+ * If the extension is enabled and a track is playing, fetches AOTY ratings and displays them alongside the track and album information in the Spotify interface. Handles duplicate UI elements, normalizes artist and album names for accurate searching, and color-codes ratings based on score. If no ratings are found, displays "No Ratings" instead.
+ *
+ * @remark Only updates the UI if a new track is playing or a manual refresh is triggered. Handles edge cases for artist and album name discrepancies between Spotify and AOTY.
+ */
 async function update() {
   if (!isEnabled) {
     clearRating();
