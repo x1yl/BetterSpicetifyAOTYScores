@@ -159,22 +159,15 @@ import { not } from "cheerio/lib/api/traversing";
 // Fetch function.
 export async function fetch(url: string) {
   // Fetching the URL with a proxy to avoid CORS issues.
-  // Default using a public Cors proxy (possibly breaking)
-  try {
-    let response = await axios.get("https://api.allorigins.win/get?url=" + url);
-    console.log(typeof response.data.contents);
-    return response.data.contents;
-  } catch (error) {
-    let response = await axios.get(
-      "https://proxy.life23243.workers.dev/?" + url,
-      {
-        headers: {
-          "User-Agent": "Mozilla/5.0",
-        },
-      }
-    );
-    return response.data;
-  }
+  let response = await axios.get(
+    "https://proxy.life23243.workers.dev/?" + url,
+    {
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+      },
+    }
+  );1
+  return response.data;
 }
 
 // Sleep function
