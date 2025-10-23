@@ -160,13 +160,13 @@ import { not } from "cheerio/lib/api/traversing";
 export async function fetch(url: string) {
   // Fetching the URL with a proxy to avoid CORS issues.
   let response = await axios.get(
-    "https://proxy.life23243.workers.dev/?" + url,
+    `https://proxy.life23243.workers.dev/?${encodeURIComponent(url)}`,
     {
       headers: {
         "User-Agent": "Mozilla/5.0",
       },
     }
-  );1
+  );
   return response.data;
 }
 
@@ -684,7 +684,7 @@ async function update() {
   // Check to see if you are replaying the same track.
   const id =
     Spicetify.Player.data.playbackId ?? Spicetify.Player.data.playback_id;
-
+  console.log(id);
   // Fix to make it not spam #2.
   if (id == prevTrack && isRefreshing == "False") return;
   isRefreshing = "False";
@@ -715,6 +715,22 @@ async function update() {
   ) {
     infoContainer = document.querySelector(
       "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-trackInfo-container.ellipsis-one-line"
+    );
+  } else if (
+    document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar.LibraryX > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
+    )
+  ) {
+    infoContainer = document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar.LibraryX > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
+    );
+  } else if (
+    document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
+    )
+  ) {
+    infoContainer = document.querySelector(
+      "#main > div > div.Root__top-container > div.Root__now-playing-bar > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container"
     );
   }
   if (!infoContainer) return;
@@ -824,6 +840,24 @@ async function update() {
           "#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container.ellipsis-one-line > div.main-trackInfo-name.ellipsis-one-line.main-type-mesto > span"
         );
       }
+      if (
+        document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar.LibraryX > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container > div.main-trackInfo-name > div > span > span > div > span"
+        )
+      ) {
+        songTitleBox = document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar.LibraryX > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container > div.main-trackInfo-name > div > span > span > div > span"
+        );
+      }
+      if (
+        document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container > div.main-trackInfo-name > div > span > span > div > span"
+        )
+      ) {
+        songTitleBox = document.querySelector(
+          "#main > div > div.Root__top-container > div.Root__now-playing-bar > aside > div > div.main-nowPlayingBar-left > div > div.main-nowPlayingWidget-trackInfo.main-trackInfo-container > div.main-trackInfo-name > div > span > span > div > span"
+        );
+      }
       // If the song has a title.
       if (songTitleBox) {
         // Creating the element that will be added.
@@ -894,7 +928,7 @@ async function update() {
     divContainer = document.createElement("div");
     divContainer.style.gridArea = "rating";
     ratingContainer = document.createElement("a");
-    divContainer.appendChild(ratingContainer);
+    divContainer.appendChild(ratingContainer); 
     divContainer.className = "scoreElement";
 
     // Album score just like track score changes color based on the rating.
@@ -929,7 +963,7 @@ async function update() {
     // Adding the element to the track info area.
     // Fix the grid container (genre included to allow for compatibility with spotify-genres)
     infoContainer.style.gridTemplate =
-      '"title title" "badges subtitle" "genres genres" "rating rating" / auto 1fr auto auto';
+      '"title title" "badges subtitle" "rating rating" "quality quality" "genres genres" / auto 1fr auto auto';
     infoContainer.appendChild(divContainer);
   } catch (e: any) {
     // Checking for errors.
@@ -991,19 +1025,46 @@ export default async function main() {
   Player.addEventListener("songchange", update);
   if (
     Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") !== null &&
-    Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") !== "v1.1.0"
+    Spicetify.LocalStorage.get("whats-new_Spicetify-Aoty-version") !== "v1.2.0"
   ) {
     Spicetify.PopupModal.display({
-      title: "New in Spicetify AOTY v1.1.0",
+      title: "New in Better AOTY v1.2.0",
       content: `<h2>General</h2>
     <ul style="list-style:inherit;margin-left:1.5em">
-    <li style="list-style:inherit;">Configuration menu in the profile dropdown</li>
+    <li style="list-style:inherit;">Updated for the latest Spotify version.</li>
     <br>
-    <li>Enable/disable the extension, show/hide notifications, and enable/disable aggressive search.</li> 
-    <br>
-    <li>Aggressive search will search just the album title if the artist name is not found on AOTY. This may return inaccurate results.</li></ul>`,
+    <li>Updated padding for the now playing bar.</li> 
+</ul>`,
       isLarge: true,
     });
   }
-  Spicetify.LocalStorage.set("whats-new_Spicetify-Aoty-version", "v1.1.0");
+  Spicetify.LocalStorage.set("whats-new_Spicetify-Aoty-version", "v1.2.0");
+
+  function waitForElement(selector) {
+    return new Promise((resolve) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        return resolve(element);
+      }
+
+      const observer = new MutationObserver(() => {
+        const element = document.querySelector(selector);
+        if (element) {
+          observer.disconnect();
+          resolve(element);
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+  }
+
+  waitForElement("#main > div > div.Root__top-container > div.Root__now-playing-bar > aside > div")
+    .then((nowPlayingBar) => {
+      nowPlayingBar.style.height = nowPlayingBar.offsetHeight + 5 + "px";
+      update();
+    });
 }
